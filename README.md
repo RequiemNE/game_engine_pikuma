@@ -1,10 +1,10 @@
 # C++ Game Engine - Pikuma Course
 
-# Introduction
+## Introduction
 
 A course on creating a game engine in C++ with a Lua scripting layer provided by [Pikuma](https://pikuma.com).
 
-# Dependencies:
+## Dependencies:
 
 - build-essential
 - libsdl2-dev
