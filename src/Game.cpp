@@ -1,6 +1,5 @@
 #include "Game.h"
 #include <iostream>
-#include <SDL2/SDL.h>
 
 Game::Game()
 {
@@ -19,7 +18,7 @@ void Game::Initialize()
         std::cerr << "Error initializing SDL." << std::endl;
         return;
     }
-    SDL_Window *window = SDL_CreateWindow(
+    window = SDL_CreateWindow(
         NULL,
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
@@ -34,7 +33,7 @@ void Game::Initialize()
     }
 
     // createRended -1 means get the default render driver. 0 means no SDL flags.
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, 0);
     if (!renderer)
     {
         std::cerr << "Error creating renderer." << std::endl;
@@ -44,10 +43,15 @@ void Game::Initialize()
 
 void Game::ProcessInput()
 {
+    SDL_Event sdlEvent;
+    SDL_PollEvent(&sdlEvent);
 }
 
 void Game::Destroy()
 {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
 void Game::Render()

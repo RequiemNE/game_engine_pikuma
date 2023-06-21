@@ -1,10 +1,14 @@
 #ifndef GAME_H
 #define GAME_H
+#include <SDL2/SDL.h>
 
 class Game
 {
 private:
-    //...
+    // Private member variables = all public class variables (below) will have
+    // access to these.
+    SDL_Window *window;
+    SDL_Renderer *renderer;
 
 public:
     Game();
