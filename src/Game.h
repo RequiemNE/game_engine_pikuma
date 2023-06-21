@@ -7,6 +7,7 @@ class Game
 private:
     // Private member variables = all public class variables (below) will have
     // access to these.
+    bool isRunning;
     SDL_Window *window;
     SDL_Renderer *renderer;
 

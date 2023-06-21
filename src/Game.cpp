@@ -3,6 +3,7 @@
 
 Game::Game()
 {
+    isRunning = false;
     std::cout << "constructor called" << std::endl;
 }
 
@@ -39,12 +40,30 @@ void Game::Initialize()
         std::cerr << "Error creating renderer." << std::endl;
         return;
     }
+
+    // If everything is running/rendering, THEN isRunning = true;
+    isRunning = true;
 }
 
 void Game::ProcessInput()
 {
     SDL_Event sdlEvent;
-    SDL_PollEvent(&sdlEvent);
+    // While there are events (there will be), poll for events.
+    while (SDL_PollEvent(&sdlEvent))
+    {
+        switch (sdlEvent.type)
+        {
+        case SDL_QUIT:
+            isRunning = false;
+            break;
+        case SDL_KEYDOWN:
+            if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
+            {
+                isRunning = false;
+            }
+            break;
+        }
+    }
 }
 
 void Game::Destroy()
@@ -60,6 +79,12 @@ void Game::Render()
 
 void Game::Run()
 {
+    while (isRunning)
+    {
+        ProcessInput();
+        Update();
+        Render();
+    }
 }
 
 void Game::Update()
