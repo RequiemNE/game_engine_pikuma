@@ -14,17 +14,25 @@ Game::~Game()
 
 void Game::Initialize()
 {
+
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
         std::cerr << "Error initializing SDL." << std::endl;
         return;
     }
+
+    // get the full width & height of the primary display.
+    SDL_DisplayMode displayMode;
+    SDL_GetCurrentDisplayMode(0, &displayMode);
+    windowWidth = displayMode.w;
+    windowHeight = displayMode.h;
+
     window = SDL_CreateWindow(
         NULL,
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        800,
-        600,
+        windowWidth,
+        windowHeight,
         SDL_WINDOW_BORDERLESS);
 
     if (!window)
@@ -40,6 +48,8 @@ void Game::Initialize()
         std::cerr << "Error creating renderer." << std::endl;
         return;
     }
+
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     // If everything is running/rendering, THEN isRunning = true;
     isRunning = true;
