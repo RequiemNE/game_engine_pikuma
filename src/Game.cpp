@@ -41,8 +41,9 @@ void Game::Initialize()
         return;
     }
 
-    // createRended -1 means get the default render driver. 0 means no SDL flags.
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    // createRended -1 means get the default render driver. 0 means no SDL flags
+    // The consts mean use force GPU acceleration when possible, and use vsync to prevent tears and max frames.
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer)
     {
         std::cerr << "Error creating renderer." << std::endl;
