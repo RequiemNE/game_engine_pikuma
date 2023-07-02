@@ -16,6 +16,7 @@ public:
     ~Game();
     void Initialize();
     void Run();
+    void Setup();
     void Destroy();
     void ProcessInput();
     void Update();
