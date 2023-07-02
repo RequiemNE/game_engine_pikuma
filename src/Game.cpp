@@ -93,9 +93,17 @@ void Game::Render()
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
-    SDL_Rect player = {10, 10, 20, 20};
-    SDL_RenderFillRect(renderer, &player);
+    // Load a PNG texture
+    SDL_Surface *surface = IMG_Load("./assets/images/tank-tiger-right.png");
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface); // destroy surface as we have gotten the texture from it, so no longer needed.
+
+    // Create rect and project texture.
+    SDL_Rect destRect = {10, 10, 32, 32};
+    SDL_RenderCopy(renderer, texture, NULL, &destRect); // Src is part of texture, null for full.
+                                                        // dest is where to project, created rect for it.
+
+    SDL_DestroyTexture(texture);
 
     SDL_RenderPresent(renderer);
 }
