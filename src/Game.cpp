@@ -56,8 +56,13 @@ void Game::Initialize()
     isRunning = true;
 }
 
+glm::vec2 playerPosition;
+glm::vec2 playerVelocity;
+
 void Game::Setup()
 {
+    playerPosition = glm::vec2(10.0, 20.0);
+    playerVelocity = glm::vec2(1.0, 0.0);
 }
 
 void Game::ProcessInput()
@@ -99,7 +104,11 @@ void Game::Render()
     SDL_FreeSurface(surface); // destroy surface as we have gotten the texture from it, so no longer needed.
 
     // Create rect and project texture.
-    SDL_Rect destRect = {10, 10, 32, 32};
+    SDL_Rect destRect = {
+        static_cast<int>(playerPosition.x),
+        static_cast<int>(playerPosition.y),
+        32,
+        32};
     SDL_RenderCopy(renderer, texture, NULL, &destRect); // Src is part of texture, null for full.
                                                         // dest is where to project, created rect for it.
 
@@ -121,4 +130,6 @@ void Game::Run()
 
 void Game::Update()
 {
+    playerPosition.x += playerVelocity.x;
+    playerPosition.y += playerVelocity.y;
 }
