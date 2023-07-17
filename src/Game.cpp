@@ -130,6 +130,13 @@ void Game::Run()
 
 void Game::Update()
 {
+    // if frames are too fast, lock the time until next tick/frame
+    while (!SDL_TICKS_PASSED(SDL_GetTicks(), millisecsPreviousFrame + MILISECS_PER_FRAME))
+        ;
+
+    // store current frame time
+    millisecsPreviousFrame = SDL_GetTicks();
+
     playerPosition.x += playerVelocity.x;
     playerPosition.y += playerVelocity.y;
 }
