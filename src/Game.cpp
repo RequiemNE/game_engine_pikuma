@@ -131,8 +131,11 @@ void Game::Run()
 void Game::Update()
 {
     // if frames are too fast, lock the time until next tick/frame
-    while (!SDL_TICKS_PASSED(SDL_GetTicks(), millisecsPreviousFrame + MILISECS_PER_FRAME))
-        ;
+    int timeToWait = MILISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
+    if (timeToWait > 0 && timeToWait <= MILISECS_PER_FRAME)
+    {
+        SDL_Delay(timeToWait);
+    }
 
     // store current frame time
     millisecsPreviousFrame = SDL_GetTicks();
