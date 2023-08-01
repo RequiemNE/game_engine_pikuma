@@ -1,15 +1,16 @@
 #include "Game.h"
+#include "Logger.h"
 #include <iostream>
 
 Game::Game()
 {
     isRunning = false;
-    std::cout << "constructor called" << std::endl;
+    Logger::Log("constructor called");
 }
 
 Game::~Game()
 {
-    std::cout << "destructor called" << std::endl;
+    Logger::Err("destructor called");
 }
 
 void Game::Initialize()
@@ -17,7 +18,7 @@ void Game::Initialize()
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
-        std::cerr << "Error initializing SDL." << std::endl;
+        Logger::Err("Error initializing SDL.");
         return;
     }
 
@@ -37,7 +38,7 @@ void Game::Initialize()
 
     if (!window)
     {
-        std::cerr << "Error creating SDL window." << std::endl;
+        Logger::Err("Error creating SDL window");
         return;
     }
 
@@ -46,7 +47,7 @@ void Game::Initialize()
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer)
     {
-        std::cerr << "Error creating renderer." << std::endl;
+        Logger::Err("Error creating renderer.");
         return;
     }
 
